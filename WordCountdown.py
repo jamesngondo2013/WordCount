@@ -28,35 +28,23 @@ def getEnglish_Words(link):
 url = "http://www-01.sil.org/linguistics/wordlists/english/wordlist/wordsEn.txt"
 words = getEnglish_Words(url)
 
+#initializing vowels and consonants
 vow = list("aeiou")
 cons = list("bcdfghjklmnpqrstvwxyz")
 
-
-vowels = [letter for letter in vow if letter in vow]
-
-consonants = [c for c in cons if c in cons]
-
-
-randConsonant = random.sample(consonants, 4)
-randVowel = random.sample(vowels, 5)
+# method that generates vowels and consonants
+def vowels_consonants(vow, cons):
+    vowels = [letter for letter in vow if letter in vow]
+    consonants = [c for c in cons if c in cons]
+    randConsonant = random.sample(consonants, 4)
+    randVowel = random.sample(vowels, 5)
 	
-newstring = randConsonant + randVowel
-vowelsconsonantsword = "".join(newstring)
-print(vowelsconsonantsword)
+    newstring = randConsonant + randVowel
+    vowelsconsonantsword = "".join(newstring)
+    return vowelsconsonantsword
 
-def anagramGenerator(dictword,inputword):  
-    for letter in dictword:  
-        if letter in inputword:  
-            inputword=inputword.replace(letter, '', 1)  
-        else:  
-            return False  
-    return True
+    
+#assign generated vowels and consonants to variable inputWord 
+inputWord = vowels_consonants(vowel, consonant)
 
-#inputWord = vowelsconsonantsword
-inputWord=input('Enter anagram:')  
-f = open('wordsList.txt', 'r')  
-for line in f:  
-    line=line.strip()
-    if anagramGenerator(line,inputWord): 
-        print(line)
-f.close()
+print("Randomly Generated letters are: ", inputWord)
