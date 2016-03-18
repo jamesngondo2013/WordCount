@@ -29,8 +29,8 @@ url = "http://www-01.sil.org/linguistics/wordlists/english/wordlist/wordsEn.txt"
 words = getEnglish_Words(url)
 
 #initializing vowels and consonants
-vow = list("aeiou")
-cons = list("bcdfghjklmnpqrstvwxyz")
+vowel = list("aeiou")
+consonant = list("bcdfghjklmnpqrstvwxyz")
 
 # method that generates vowels and consonants
 def vowels_consonants(vow, cons):
@@ -42,9 +42,27 @@ def vowels_consonants(vow, cons):
     newstring = randConsonant + randVowel
     vowelsconsonantsword = "".join(newstring)
     return vowelsconsonantsword
-
     
-#assign generated vowels and consonants to variable inputWord 
-inputWord = vowels_consonants(vowel, consonant)
+# read from file and and populate the dictionary
+words = defaultdict(list)
+file = open('dictionary.txt','r')
+f = file.readlines()
+for word in f:
+	word=word.strip()
+	words[''.join(sorted(word))].append(word)
 
-print("Randomly Generated letters are: ", inputWord)
+# searching for the longest anagram, get the vowels and consonants and check against the words in dictionary
+def generate_longest_word(vows_cons, words):
+    length_of_word = len(vows_cons)
+    #sort the vowels and consonants
+    vows_cons = sorted(vows_cons) 
+    while length_of_word > 0:
+        # generate possible combinations of anagrams based on the length_of_word
+        #itertools combinations will maintain the sort order of the letters
+        for wordcombination in itertools.combinations(vows_cons, length_of_word):  
+            result = ''.join(wordcombination)
+            if result in words:
+                return words[result]
+        length_of_word -= 1
+    
+
