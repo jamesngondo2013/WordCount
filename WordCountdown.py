@@ -66,3 +66,21 @@ def generate_longest_word(vows_cons, words):
         length_of_word -= 1
     
 
+#assign generated vowels and consonants to variable inputWord 
+inputWord = vowels_consonants(vowel, consonant)
+
+print("Randomly Generated letters are: ", inputWord)
+	
+matched_word = generate_longest_word(inputWord, words)
+
+#check to see if the matched_word list is not empty, get all the longest words and print them out
+found = False
+
+if(matched_word):
+    for word in matched_word:
+        if(word in matched_word):
+            print("Longest Generated Word is: ",word)
+            found = True
+            
+else:
+    print("Sorry, Can not create word...Try Again")   
