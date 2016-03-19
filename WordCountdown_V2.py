@@ -1,36 +1,10 @@
 import itertools
 from collections import defaultdict
 import random
-from bs4 import BeautifulSoup
-import urllib.request
 import time
 
-#start = time.time()
-
-NUM_LETTERS = 5
-file = open('dictionary.txt', 'w+') # file that will store all the English words we get form website
-
 print("====================================")
-print("File name created: ",file.name)
 print("Proccessing...")
-
-
-#Gettting English words from the website using web scraping tools
-#We read all the english words and only write to file words with a length of greater than five 
-def getEnglish_Words(link):
-    page = urllib.request.urlopen(link)
-    soup = BeautifulSoup(page.read(),"html.parser")
-    data = soup.string
-    for word in data.split():
-        if len(word) > NUM_LETTERS:
-            
-            file.write(word)
-            file.write('\n')
-            #print((word))
-                       
-    file.close()           
-url = "http://www-01.sil.org/linguistics/wordlists/english/wordlist/wordsEn.txt"
-words = getEnglish_Words(url)
 
 #initializing vowels and consonants
 vowel = list("aeiou")
