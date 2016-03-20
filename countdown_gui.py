@@ -23,35 +23,55 @@ class Application(Frame):
         
     def create_widgets(self): #create button, text, widgets
     
-        #self.labelframe = LabelFrame(root, text="This is a LabelFrame")
-        #self.labelframe.pack(fill="both", expand="yes")
+        self.label= Label(self, text = "")
+        self.label.grid(row=0, column=1, columnspan=2, sticky=W)
+        
+        self.label2= Label(self, text = "Countdown Letter Game Solver",font=("Helvetica", 15),fg="blue")
+        self.label2.grid(row=1, column=1, columnspan=2, sticky=W)
+        
+        self.label4= Label(self, text = "")
+        self.label4.grid(row=2, column=1, columnspan=2, sticky=W)
+
+        
         
         self.instruction = Label(self, text = "Enter Vowels(5) and Consonants(4)")
-        self.instruction.grid(row = 4, column =0, columnspan =2, sticky =W)
+        self.instruction.grid(row = 3, column =0, columnspan=2,sticky =W)
+        
+        self.label3= Label(self, text = "")
+        self.label3.grid(row=4, column=1, sticky=W)
         
         self.vowelsconsonants = Entry(self)
-        self.vowelsconsonants.grid(row =4, column = 1, sticky = W)
-        
-        
+        self.vowelsconsonants.grid(row =3, column = 2, sticky = E)
         
         #textbox that displays the message
-        self.text = Text(self, width =70, height = 20, wrap = WORD)
-        self.text.grid(row =6, column =0, columnspan = 2, sticky = W)
+        self.text = Text(self, width =40, height = 10)
+        self.text.grid(row =6, column =0, columnspan = 3, sticky = E)
         
-        self.submit_button = Button(self, text ="Submit", command = self.reveal)
-        self.submit_button.grid(row = 8, column = 1, sticky = W)
+        self.label3= Label(self, text = "")
+        self.label3.grid(row=7, column=1, sticky=W)
         
-        self.quit_button = Button(self, text ="Quit", command = self.quit)
-        self.quit_button.grid(row = 8, column = 1, sticky = E)
-    
+        self.submit_button = Button(self, text="Submit  ", command=self.reveal)
+        self.reset_button = Button(self, text="  Reset   ", command= self.reset)
+        self.quit_button = Button(self, text="  Exit   ", command = self.quit)
+
+        # LAYOUT
+
+        self.submit_button.grid(row=8, column=0,sticky=W)
+        self.reset_button.grid(row=8, column=1)
+        self.quit_button.grid(row=8, column=2)
+        
+        
+       
+    def reset(self):
+        self.vowelsconsonants.delete(0, END)
+        self.text.delete(1.0, END)
         
     def reveal(self):
         words = defaultdict(list)
-        bye = []
+        outputlst = []
         inputWord = self.vowelsconsonants.get()
-        #self.text.insert(0.0, inputWord)
+   
         # read from file and and populate the dictionary
-        #words = defaultdict(list)
         file = open('dictionary.txt','r')
         f = file.readlines()
         for word in f:
@@ -67,20 +87,24 @@ class Application(Frame):
             for wordcombination in itertools.combinations(inputWord, length_of_word):  
                 result = ''.join(wordcombination)
                 if result in words:
-                    bye =  words[result]
+                    outputlst =  words[result]
             length_of_word -= 1
-            
-        for word in bye:
-            if(word in bye):
-                self.text.insert(0.0, word,'\n')
+        
+        if(outputlst):
+            for word in outputlst:
+                if(word in outputlst):
+                    self.text.insert(1.0, word + '\n')
+                    
                 print("Longest Generated Word is: ",word)
+        else:
+            self.text.insert(0.0, "Can't generate word...Please try again")
 
         
 		
 	
 root = Tk()
 root.title("Ngondo James Word Countdown")
-root.geometry("600x450")
+root.geometry("400x400")
 
 
 app = Application(root)

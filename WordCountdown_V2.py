@@ -32,26 +32,25 @@ for word in f:
 	words[''.join(sorted(word))].append(word)
 
 # searching for the longest anagram, get the vowels and consonants and check against the words in dictionary
-def generate_longest_word(vows_cons, words):
-    length_of_word = len(vows_cons)
+def generate_longest_word():
+    inputWord = vowels_consonants(vowel, consonant)
+    print("Randomly Generated letters are: ", inputWord)
+    length_of_word = len(inputWord)
     #sort the vowels and consonants
-    vows_cons = sorted(vows_cons) 
+    inputWord = sorted(inputWord) 
     while length_of_word > 0:
         # generate possible combinations of anagrams based on the length_of_word
         #itertools combinations will maintain the sort order of the letters
-        for wordcombination in itertools.combinations(vows_cons, length_of_word):  
+        for wordcombination in itertools.combinations(inputWord, length_of_word):  
             result = ''.join(wordcombination)
             if result in words:
                 return words[result]
-        length_of_word -= 1
+        length_of_word = length_of_word - 1
     
 
 #assign generated vowels and consonants to variable inputWord 
-inputWord = vowels_consonants(vowel, consonant)
-
-print("Randomly Generated letters are: ", inputWord)
 	
-matched_word = generate_longest_word(inputWord, words)
+matched_word = generate_longest_word()
 
 #check to see if the matched_word list is not empty, get all the longest words and print them out
 found = False
