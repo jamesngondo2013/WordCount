@@ -60,8 +60,7 @@ class Application(Frame):
         self.reset_button.grid(row=8, column=1)
         self.quit_button.grid(row=8, column=2)
         
-        
-       
+            # clears the textboxes
     def reset(self):
         self.vowelsconsonants.delete(0, END)
         self.text.delete(1.0, END)
