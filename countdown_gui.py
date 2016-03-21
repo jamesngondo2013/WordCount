@@ -19,7 +19,7 @@ class Application(Frame):
 
         Frame.__init__(self, master)# initialize frame
         self.grid()
-        self.create_widgets()
+        self.create_widgets() 
         
     def create_widgets(self): #create button, text, widgets
     
@@ -32,14 +32,14 @@ class Application(Frame):
         self.label4= Label(self, text = "")
         self.label4.grid(row=2, column=1, columnspan=2, sticky=W)
 
-        
-        
+           
         self.instruction = Label(self, text = "Enter Vowels(5) and Consonants(4)")
         self.instruction.grid(row = 3, column =0, columnspan=2,sticky =W)
         
         self.label3= Label(self, text = "")
         self.label3.grid(row=4, column=1, sticky=W)
         
+        #textbox that displays the vowels and consonants
         self.vowelsconsonants = Entry(self)
         self.vowelsconsonants.grid(row =3, column = 2, sticky = E)
         
@@ -64,6 +64,10 @@ class Application(Frame):
     def reset(self):
         self.vowelsconsonants.delete(0, END)
         self.text.delete(1.0, END)
+        
+    def validate(self, P):
+        self.vowelsconsonants.config(state=(NORMAL if P else DISABLED))
+        return True
         
     def reveal(self):
         words = defaultdict(list)
@@ -102,7 +106,7 @@ class Application(Frame):
 		
 	
 root = Tk()
-root.title("Ngondo James Word Countdown")
+root.title("James Ngondo 2016")
 root.geometry("400x400")
 
 
