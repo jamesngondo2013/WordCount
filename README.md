@@ -88,7 +88,7 @@ def vowels_consonants(vow, cons):
     return vowelsconsonantsword
 ```
 
-Reading from text file and adding to Python default dictionary
+The script below reads english words from text file, remove all the white spaces, sort and join all the individual charachers and add them to a Python default dictionary - words. As explained above, you can that the dictionary is has no keys. Defaultdict automatically creates an empty list, and the list.append will then help to append the values to the list. Using defaultdict proves to be faster than performing similar poerations using dict.set_default method of Python.
 ```python
 words = defaultdict(list)
 file = open('dictionary.txt','r')
@@ -98,8 +98,48 @@ for word in f:
 	words[''.join(sorted(word))].append(word)
 ```	
 
+The part of script below is a function that searches for the longest anagram. It gets the randomly generated vowels and consonants and sorts them. The function uses the itertools.combination library (as explained above) to produce a sequence of combinations of items taken from the inputWord - this returns an iterator containing all the possible combinations of the given sequence of the given length. The itertools.combinatios does not include items that are duplicates of other items in a different order. The function eventually returns list that contains all possible generated anagrams.
+```python
+def generate_longest_word():
+	inputWord = vowels_consonants(vowel, consonant)
+            .
+            .
+            .
+       
+        for wordcombination in itertools.combinations(inputWord, length_of_word):  
+            result = ''.join(wordcombination)
+            if result in words:
+                return words[result]
+        length_of_word = length_of_word - 1
+            .
+            .
+            .
+```
+
+Finally, the below script gets all the generates anagrams based on the input vowels and consonants and initially check to see if the matched_word list is not empty, then get all the longest words and prints them out. If the matched_word is empty, we get then assume that we were not able to generate any english anagram from the inputWord (Vowels and Consonants).
+```python
+matched_word = generate_longest_word()
+
+#check to see if the matched_word list is not empty, get all the longest words and print them out
+found = False
+
+if(matched_word):
+    for word in matched_word:
+        if(word in matched_word):
+            print("Longest Generated Word is: ",word)
+            found = True
+            
+else:
+    print("Sorry, Can not create word...Try Again")  
+```
+
 #### b) Efficiency
+The algorithm has been timed. It is more efficient in terms of time/ speed. Since this algorithm uses web scraping, therefore, 	the speed varies depending on internet connection as it sifts through the web page to get data (English dictioanry words). If the 		internet connection is slow, then the algorithm itself is a bit slow. The first time the algorithm runs, it will create a 	dictionary file (dictionary.txt) and populate it with english words. Then it will start reading in the dictionary file (preprocessing) and add to Python's standard dictionary. Generating anagrams from vowels and consonants and checking against Python's standard dictionary with key value pairs is faster since defaultdict has excellent runtime performance characteristics. The whole process may take approximately 0.756014347076416 seconds.
+
+
 #### c) Results
+The screenshot below indicates the output results after running the algorithm several times. 
+![alt tag](http://url/to/img.png)
 
 ### 2. Script using an existing English Word Dictionary
 #### a) Preprocessing
