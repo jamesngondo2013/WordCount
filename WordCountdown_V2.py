@@ -25,7 +25,7 @@ def vowels_consonants(vow, cons):
     
 # read from file and and populate the dictionary
 words = defaultdict(list)
-file = open('dictionary.txt','r')
+file = open('dictionary2.txt','r')
 f = file.readlines()
 for word in f:
 	word=word.strip()
