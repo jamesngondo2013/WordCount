@@ -5,15 +5,15 @@ from bs4 import BeautifulSoup
 import urllib.request
 import time
 
-#start = time.time()
+start = time.time()
 
 NUM_LETTERS = 5
+
 file = open('dictionary.txt', 'w+') # file that will store all the English words we get form website
 
 print("====================================")
-print("File name created: ",file.name)
 print("Proccessing...")
-
+print("File name created: ",file.name)
 
 #Gettting English words from the website using web scraping tools
 #We read all the english words and only write to file words with a length of greater than five 
@@ -23,10 +23,9 @@ def getEnglish_Words(link):
     data = soup.string
     for word in data.split():
         if len(word) > NUM_LETTERS:
-            
+            #write words to text file
             file.write(word)
             file.write('\n')
-            #print((word))
                        
     file.close()           
 url = "http://www-01.sil.org/linguistics/wordlists/english/wordlist/wordsEn.txt"
@@ -36,7 +35,7 @@ words = getEnglish_Words(url)
 vowel = list("aeiou")
 consonant = list("bcdfghjklmnpqrstvwxyz")
 
-start = time.time()
+#start = time.time()
 
 # method that generates vowels and consonants
 def vowels_consonants(vow, cons):
@@ -49,8 +48,10 @@ def vowels_consonants(vow, cons):
     vowelsconsonantsword = "".join(newstring)
     return vowelsconsonantsword
     
-# read from file and and populate the dictionary
+#initialize an empty dictionary
 words = defaultdict(list)
+
+# read from file and and all the words to a dictionary
 file = open('dictionary.txt','r')
 f = file.readlines()
 for word in f:
@@ -59,6 +60,7 @@ for word in f:
 
 # searching for the longest anagram, get the vowels and consonants and check against the words in dictionary
 def generate_longest_word():
+    
     inputWord = vowels_consonants(vowel, consonant)     #assign generated vowels and consonants to variable inputWord 
     print("Randomly Generated letters are: ", inputWord)
     length_of_word = len(inputWord)
@@ -70,22 +72,25 @@ def generate_longest_word():
         for wordcombination in itertools.combinations(inputWord, length_of_word):  
             result = ''.join(wordcombination)
             if result in words:
-                return words[result]
-        length_of_word = length_of_word - 1
-    	
-matched_word = generate_longest_word()
-
-#check to see if the matched_word list is not empty, get all the longest words and print them out
-found = False
-
-if(matched_word):
-    for word in matched_word:
-        if(word in matched_word):
-            print("Longest Generated Word is: ",word)
-            found = True
-            
-else:
-    print("Sorry, Can not create word...Try Again")  
+            #list that contains all possible generated anagrams that match any of the engilsh words in the dictionary
+                match = words[result]
+                return match
+        length_of_word = length_of_word - 1 
+        
+print()
+found = False 
+def print_longestWords():
+    list = generate_longest_word()
+    if(list is not None):
+        sortedwords = sorted(list, key=len)
+        print("Total Number of Anagrams: ",len(list))
+        print("Longest Word: ",sortedwords[-1])
+        found = True
+        
+    else:
+        print("No Longest Word Found...Please try again")
+    
+print_longestWords()
 
 end = time.time()
 

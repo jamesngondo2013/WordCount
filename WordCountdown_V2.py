@@ -33,6 +33,7 @@ for word in f:
 
 # searching for the longest anagram, get the vowels and consonants and check against the words in dictionary
 def generate_longest_word():
+    outputlist = []
     inputWord = vowels_consonants(vowel, consonant)     #assign generated vowels and consonants to variable inputWord 
     print("Randomly Generated letters are: ", inputWord)
     length_of_word = len(inputWord)
@@ -45,23 +46,26 @@ def generate_longest_word():
             result = ''.join(wordcombination)
             if result in words:
             #returns list that contains all possible generated anagrams that match any of the engilsh words in the dictionary 
-                return words[result]
+                outputlist= words[result]
+                return outputlist
+
         length_of_word = length_of_word - 1
-    	
-matched_word = generate_longest_word()
-
-#check to see if the matched_word list is not empty, get all the longest words and print them out
+        
 found = False
-
-if(matched_word):
-    for word in matched_word:
-        if(word in matched_word):
-            print("Longest Generated Word is: ",word)
-            found = True
-
-#assume that we were not able to generate any english anagram from the inputWord (Vowels and Consonants).            
-else:
-    print("Sorry, Can not create word...Try Again")  
+#this function will sort the list of anagrams in ascending order and prints out the longest word from the sorted list
+def print_longestWords():
+    list = generate_longest_word()
+    #check to see if the matched_word list is not empty
+    if(list is not None):
+        sortedwords = sorted(list, key=len) #this builds a new sorted list of anagrams from an iterable.
+        print("Total Number of Anagrams: ",len(list))
+        print("Longest Word: ",sortedwords[-1])
+        found = True
+        
+    else:
+        print("No Longest Word Found...Please try again")
+    
+print_longestWords()
 
 end = time.time()
 
