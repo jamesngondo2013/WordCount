@@ -14,7 +14,12 @@ The scripts are developed using Python 3.0.1 Release.
 An [English dictionary](http://www-01.sil.org/linguistics/wordlists/english/wordlist/wordsEn.txt) file known as dictionary.txt with one word per line and approximately 120,000 words is used in this script. The script will check if the dictionary text file exist. If not, it will attempt to create one. The script also uses some of Python's standard libraries such as:
 ####* [Beautiful Soup](http://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 Beautiful Soup is a Python library for pulling data out of HTML and XML files. It works with your favorite parser to provide idiomatic ways of navigating, searching, and modifying the parse tree. It commonly saves programmers hours or days of work. Beautiful Soup supports the HTML parser included in Python’s standard library, but it also supports a number of third-party Python parsers.
-Installation procedure for Beautiful Soup can be found [here](http://www.crummy.com/software/BeautifulSoup/bs4/doc/).
+BeautifulSoup4 installs fine with python3. But make sure that your version of pip is for python3.
+        cli -> pip install beautifulsoup4
+        cli ->pip -V
+        
+Full installation procedure for Beautiful Soup can be found [here](http://www.crummy.com/software/BeautifulSoup/bs4/doc/).
+
 
 ####* [urllib.request](https://docs.python.org/3/library/urllib.request.html#module-urllib.request)
 The urllib.request module defines functions and classes which help in opening URLs (mostly HTTP) in a complex world — basic and digest authentication, redirections, cookies and more.
@@ -23,9 +28,16 @@ Itertools comes packaged with Python and it provides a set of functions for work
 ####* [Defaultdict](https://www.accelebrate.com/blog/using-defaultdict-python/)
 A defaultdict is a Python dictionary which provides a default value for keys, so that keys which have no value(s) can be explicitly defined and accessed without errors. That simply means you do not need to check whether a key is present or not.
 
-###* [Time]
+####* [tkinter](https://docs.python.org/3.0/library/tkinter.html)
+Tkinter is the standard GUI library for Python. Python when combined with Tkinter provides a fast
+and easy way to create GUI applications. Tkinter provides a powerful object-oriented interface to
+the Tk GUI toolkit.
 
-###* [Random]
+####* [Time](http://pythoncentral.io/measure-time-in-python-time-time-vs-time-clock/)
+Python's time module provides various time-related functions. time.time() returns the time in seconds since the epoch, i.e., the point where the time starts. If the program is expected to run in a system that also runs lots of other programs at the same time, using time.time() makes sense.
+
+####* [Random](http://effbot.org/librarybook/random.htm)
+ The random module is another library of functions that can extend the basic features of python. This can be used to pick a random element from a list, pick a random card from a deck etc.
 
 
 ## Versions of the Script
@@ -116,40 +128,126 @@ def generate_longest_word():
             .
 ```
 
-Finally, the below script gets all the generates anagrams based on the input vowels and consonants and initially check to see if the matched_word list is not empty, then get all the longest words and prints them out. If the matched_word is empty, we get then assume that we were not able to generate any english anagram from the inputWord (Vowels and Consonants).
+Finally, the below script gets the list of generated anagrams that was returned from the above function - generate_longest_word(). This function will initially check to see if the list is not empty, then sort the list in ascending order - builds a new sorted list of anagrams from an iterable. and prints them out. If the list is empty, we then assume that we were not able to generate any english anagram from the inputWord (Vowels and Consonants).
 ```python
-matched_word = generate_longest_word()
+ list = generate_longest_word()
+    if(list is not None):
+        sortedwords = sorted(list, key=len) 
+        print("Total Number of Anagrams: ",len(list))
+        print("Longest Word: ",sortedwords[-1])
+        found = True
+        
+    else:
+        print("No Longest Word Found...Please try again")
+    
+print_longestWords()
+```
 
-#check to see if the matched_word list is not empty, get all the longest words and print them out
-found = False
+This script is being used to time the algorithms. It helps us evaluate the efficiency of the algorthm that is being run.
+```python
+start = time.time()
+	.
+	.
+	.
+end = time.time()
+print("Time taken... %s seconds " % (end - start)) 
 
-if(matched_word):
-    for word in matched_word:
-        if(word in matched_word):
-            print("Longest Generated Word is: ",word)
-            found = True
-            
-else:
-    print("Sorry, Can not create word...Try Again")  
 ```
 
 #### b) Efficiency
-The algorithm has been timed. It is more efficient in terms of time/ speed. Since this algorithm uses web scraping, therefore, 	the speed varies depending on internet connection as it sifts through the web page to get data (English dictioanry words). If the 		internet connection is slow, then the algorithm itself is a bit slow. The first time the algorithm runs, it will create a 	dictionary file (dictionary.txt) and populate it with english words. Then it will start reading in the dictionary file (preprocessing) and add to Python's standard dictionary. Generating anagrams from vowels and consonants and checking against Python's standard dictionary with key value pairs is faster since defaultdict has excellent runtime performance characteristics. The whole process may take approximately 0.756014347076416 seconds.
-
+The algorithm has been timed. It is more efficient in terms of time/ speed. Since this algorithm uses web scraping, therefore, 	the speed varies depending on internet connection as it sifts through the web page to get data (English dictioanry words). If the 		internet connection is slow, then the algorithm itself is a bit slow. The first time the algorithm runs, it will create a 	dictionary file (dictionary.txt) and populate it with english words. Then it will start reading in the dictionary file (preprocessing) and add to Python's standard dictionary. Generating anagrams from vowels and consonants and checking against Python's standard dictionary with key value pairs is faster since defaultdict has excellent runtime performance characteristics. The whole process may take approximately 3.5 seconds.
 
 #### c) Results
 The screenshot below indicates the output results after running the algorithm several times. 
-![alt tag](http://url/to/img.png)
+![alt text](https://github.com/jamesngondo2013/WordCount/blob/master/results.PNG)
 
 ### 2. Script using an existing English Word Dictionary
+This algorthm is quite similar to the one above except that it uses an existing dictionary other than web scraping. 
 #### a) Preprocessing
+During preprocessing, the algorithm also generates random letters that are used to generate the matching anagrams. It reads the dictionary file - (txt) and add all the words to Python's standard dictionary. The proceces of generating anagrams from vowels and consonants and checking against Python's standard dictionary with key value pairs is faster since defaultdict has excellent runtime performance characteristics. The algorithm will generate one or more english words of similar lenght and prints only the longest word as output result. 
 #### b) Efficiency
+Generating anagrams from vowels and consonants and checking against Python's standard dictionary with key value pairs is faster since defaultdict has excellent runtime performance characteristics. The whole process may take approximately 0.6 seconds.
 #### c) Results
+Below is a screenshot showing the output results and also the efficiency of the algorithm as it runs several times.
+![alt text](https://github.com/jamesngondo2013/WordCount/blob/master/results_V2.PNG)
 
 ### 3. Scrip with Graphical User Interface (GUI)
+This algorthm is quite similar to the one above except that it uses an existing dictionary other than web scraping and also has a Graphical User Interface that allows the user to input their own letters other than randomly generated letters. The GUI provides two text boxes. One text box is for the user to input the letters of their choice (vowels and consonants). the other text box displays the output results after the user has clicked on the Submit button. Ther user can click on the Reset button to clear the text boxes and re-enter new input. There's also a Quit button that exits the program. This design lets the user interact with the application.
 #### a) Preprocessing
+During preprocessing, the algorithm also generates random letters that are used to generate the matching anagrams. It reads the dictionary file - (txt) and add all the words to Python's standard dictionary. The proceces of generating anagrams from vowels and consonants and checking against Python's standard dictionary with key value pairs is faster since defaultdict has excellent runtime performance characteristics. The algorithm will generate one or more english words of similar lenght as output result.
+
+Below is a script that shows the Python's standard libraries that we have imported for the algorithm. 
+```python
+try:
+    # for Python2
+    from Tkinter import *   ## notice capitalized T in Tkinter 
+    import itertools
+    from collections import defaultdict
+    import random
+except ImportError:
+    # for Python3
+    from tkinter import *  
+    from collections import defaultdict
+    import itertools
+```
+
+This piece of code defines the main class of the application that comprises a constructor that initialises the frame and other widgets such as labels, textboxes and buttons.
+
+```python
+class Application(Frame):
+    def __init__(self, master): #constructor
+
+        Frame.__init__(self, master)# initialize frame
+        self.grid()
+        self.create_widgets() 
+        
+    def create_widgets(self): #create button, text, widgets
+    
+        self.label= Label(self, text = "")
+        self.label.grid(row=0, column=1, columnspan=2, sticky=W)
+        
+        self.label2= Label(self, text = "Countdown Letter Game Solver",font=("Helvetica", 15),fg="blue")
+        self.label2.grid(row=1, column=1, columnspan=2, sticky=W)
+        	.	
+        	.
+        	.
+```
+
+This function is called on the Reset button. It clears/ resets the input and display text boxes.
+```python
+ def reset(self):
+        self.vowelsconsonants.delete(0, END)
+        self.text.delete(1.0, END)
+
+```
+
+This function is called on the Submit button. It is responsible for reading the text file, store all english words in a defaultdict, get user input ( letters - vowels and consonants), generate possible anagrams and check against the dictionary and the generate the longest word.
+```python
+def reveal(self):
+        words = defaultdict(list)
+        outputlst = []
+        inputWord = self.vowelsconsonants.get()
+   		.
+   		.
+   		.
+```
 #### b) Efficiency
+In terms of efficiency, the process of generating anagrams from vowels and consonants and checking against Python's standard dictionary with key value pairs is faster since defaultdict has excellent runtime performance characteristics. The whole process may take approximately 0.6 seconds.
 #### c) Results
+Below are screenshots showing the output results and also the efficiency of the algorithm as it runs several times.
+![alt text](https://github.com/jamesngondo2013/WordCount/blob/master/screenshot1.PNG)
+![alt text](https://github.com/jamesngondo2013/WordCount/blob/master/screenshot2.PNG)
 
 ## References
+##### 1. http://code.runnable.com/UqBhah-3yRUKAAAf/anagram-solver-in-python-
+##### 2. http://blog.blakehemingway.co.uk/?p=1
+##### 3. http://stackoverflow.com/questions/24592036/is-beautiful-soup-available-for-python-3-4-1
+##### 4. http://codereview.stackexchange.com/questions/75023/optimizing-an-anagram-solver
+##### 5. http://stackoverflow.com/questions/8371887/making-all-possible-combinations-of-a-list-in-python
+##### 6. http://stackoverflow.com/questions/16159239/how-can-i-find-the-longest-word-in-a-text-file
+##### 7. http://stackoverflow.com/questions/8286554/find-anagrams-for-a-list-of-words
+##### 8. https://www.youtube.com/watch?v=XqTKV0Vd0JQ
+##### 9. http://www.diveintopython3.net/advanced-iterators.html
+##### 10. http://www.howopensource.com/2011/06/generation-of-words-using-the-combination-of-consonants-and-vowels-using-python/
+##### 11. http://jakerpomperada.blogspot.ie/2014/06/consonants-and-vowels-counter-in-python.html
 
