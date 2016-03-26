@@ -102,13 +102,11 @@ class Application(Frame):
         else:
             self.text.insert(0.0, "Can't generate word...Please try again")
 
-        
-		
+        		
 	
 root = Tk()
 root.title("James Ngondo 2016")
 root.geometry("400x400")
-
 
 app = Application(root)
 root.mainloop()    

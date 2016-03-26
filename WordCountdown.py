@@ -74,17 +74,17 @@ def generate_longest_word():
             if result in words:
             #list that contains all possible generated anagrams that match any of the engilsh words in the dictionary
                 match = words[result]
-                return match
+                return match # returns the list
         length_of_word = length_of_word - 1 
         
-print()
 found = False 
+#this function will sort the list of anagrams in ascending order and prints out the longest word from the sorted list
 def print_longestWords():
     list = generate_longest_word()
     if(list is not None):
-        sortedwords = sorted(list, key=len)
+        outputresult = sorted(list, key=len) #this builds a new sorted list of anagrams from an iterable.
         print("Total Number of Anagrams: ",len(list))
-        print("Longest Word: ",sortedwords[-1])
+        print("Longest Word: ",outputresult[-1])
         found = True
         
     else:

@@ -57,9 +57,9 @@ def print_longestWords():
     list = generate_longest_word()
     #check to see if the matched_word list is not empty
     if(list is not None):
-        sortedwords = sorted(list, key=len) #this builds a new sorted list of anagrams from an iterable.
+        outputresult = sorted(list, key=len) #this builds a new sorted list of anagrams from an iterable.
         print("Total Number of Anagrams: ",len(list))
-        print("Longest Word: ",sortedwords[-1])
+        print("Longest Word: ",outputresult[-1])
         found = True
         
     else:
